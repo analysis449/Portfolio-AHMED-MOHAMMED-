@@ -30,6 +30,49 @@
         .scrolled {
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
         }
+        
+        /* Custom styling for the modal content for better readability */
+        .modal-article h2 {
+            font-size: 1.875rem; /* text-3xl */
+            font-weight: 700; /* font-bold */
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: #1f2937;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 0.5rem;
+        }
+
+        .modal-article h3 {
+            font-size: 1.25rem; /* text-xl */
+            font-weight: 600; /* font-semibold */
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: #4b5563;
+        }
+
+        .modal-article p {
+            margin-bottom: 1rem;
+            color: #4b5563;
+            line-height: 1.6;
+        }
+
+        .modal-article ul {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .modal-article ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-article pre {
+            background-color: #f3f4f6;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            font-size: 0.875rem; /* text-sm */
+        }
     </style>
 </head>
 <body>
@@ -70,7 +113,7 @@
                     <h1 class="text-5xl sm:text-7xl font-extrabold leading-tight text-gray-800">
                         Ahmed Mohammed.
                     </h1>
-                    <h2 class="text-3xl sm:text-4xl font-light text-graymt-2"   style="color: #6751e0;">
+                    <h2 class="text-3xl sm:text-4xl font-light text-graymt-2" style="color: #6751e0;">
                         Full Stack Developer
                     </h2>
                     <p class="mt-6 text-lg text-gray-500 max-w-lg">
@@ -140,9 +183,10 @@
                         <span class="text-xs font-medium bg-green-100 text-green-800 px-3 py-1 rounded-full">TypeScript</span>
                         <span class="text-xs font-medium bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full">Node.js</span>
                     </div>
-                    <a href="#" class="mt-4 block text-indigo-600 hover:text-indigo-800 font-medium transition duration-150">
+                    <button onclick="document.getElementById('case-study-modal').classList.remove('hidden')" 
+                            class="mt-4 block text-indigo-600 hover:text-indigo-800 font-medium transition duration-150 cursor-pointer">
                         View Case Study &rarr;
-                    </a>
+                    </button>
                 </div>
 
                 <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 border border-gray-100">
@@ -269,6 +313,143 @@
         </div>
     </footer>
 
+    <div id="case-study-modal" class="fixed inset-0 bg-gray-900 bg-opacity-75 z-[100] hidden overflow-y-auto" onclick="if(event.target.id === 'case-study-modal') document.getElementById('case-study-modal').classList.add('hidden')">
+        <div class="flex min-h-full items-center justify-center p-4">
+            <div class="relative w-full max-w-4xl max-h-[90vh] mx-auto bg-white rounded-xl shadow-2xl p-8 transform transition-all overflow-y-auto">
+                <div class="flex justify-end sticky top-0 bg-white pt-2 z-10">
+                    <button onclick="document.getElementById('case-study-modal').classList.add('hidden')" 
+                            class="text-gray-400 hover:text-gray-600 p-2 rounded-full transition duration-150">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+
+                <div class="modal-article pb-8">
+                    <h1 class="text-4xl font-extrabold text-gray-800 mb-4">How to Redesign an Analytics Platform with React, TypeScript, and Node.js Using VS Code 🚀</h1>
+                    <p class="text-lg text-gray-500 mb-6 border-b pb-4">Redesigning a SaaS analytics dashboard can drastically improve performance, usability, and scalability. This guide walks through a complete workflow using React, TypeScript, Node.js, and VS Code.</p>
+
+                    <p>Redesigning an analytics platform requires a combination of frontend, backend, and UX improvements. Using React, TypeScript, Node.js, and VS Code provides a flexible and scalable workflow. By following these steps, you can create a fast, responsive, and user-friendly analytics dashboard ready for real-world use.</p>
+
+                    <h3 class="text-2xl font-semibold text-indigo-600 mt-8 mb-4">Step 1: Install Prerequisites</h3>
+                    <p>Before starting, ensure you have the following installed:</p>
+                    <ul>
+                        <li><a href="https://code.visualstudio.com/download" target="_blank" class="text-indigo-600 hover:underline"><strong>VS Code</strong></a></li>
+                        <li><a href="https://nodejs.org/en/download/" target="_blank" class="text-indigo-600 hover:underline"><strong>Node.js</strong></a> (includes npm)</li>
+                        <li><a href="https://git-scm.com/downloads" target="_blank" class="text-indigo-600 hover:underline"><strong>Git</strong></a></li>
+                    </ul>
+
+                    <p>Optional but helpful VS Code extensions:</p>
+                    <ul class="list-disc ml-6">
+                        <li>ES7+ React/Redux/React-Native snippets – Faster coding with handy shortcuts</li>
+                        <li>Prettier – Automatic code formatting</li>
+                        <li>TypeScript Hero – Better TypeScript support and navigation</li>
+                        <li>Debugger for Chrome – Debug frontend React code easily</li>
+                    </ul>
+
+                    <h3 class="text-2xl font-semibold text-indigo-600">Step 2: Set Up Your Project</h3>
+                    <p>Open VS Code and launch the terminal.</p>
+                    <p><strong>Create a React + TypeScript frontend:</strong></p>
+                    <pre><code class="language-bash">npx create-react-app analytics-dashboard --template typescript
+cd analytics-dashboard
+code .</code></pre>
+                    <p><strong>Initialize a Node.js backend in a separate folder (<code>/backend</code>):</strong></p>
+                    <pre><code class="language-bash">mkdir backend
+cd backend
+npm init -y
+npm install express cors dotenv</code></pre>
+                    <p>Open both frontend and backend folders in VS Code to work simultaneously.</p>
+                    
+
+                    <h3 class="text-2xl font-semibold text-indigo-600">Step 3: Organize Your Project Structure</h3>
+                    <p>A clean structure makes your project scalable and maintainable. Recommended structure:</p>
+                    <pre><code>/analytics-dashboard
+  /src
+    /components (Reusable UI)
+    /pages (Main views/routes)
+    /services (API calls/business logic)
+    /types (TypeScript definitions)
+/backend
+  /routes (API endpoints)
+  /controllers (Logic to handle routes)
+  /models (Data schemas/DB interaction)
+  server.ts (Main entry point)</code></pre>
+
+                    <h3 class="text-2xl font-semibold text-indigo-600">Step 4: Start Frontend & Backend</h3>
+                    <p><strong>Frontend:</strong></p>
+                    <pre><code class="language-bash">npm start</code></pre>
+                    <p><strong>Backend:</strong></p>
+                    <pre><code class="language-bash">node backend/server.js  # Or use ts-node if backend is TypeScript</code></pre>
+                    <p>Your frontend will run on <code>localhost:3000</code>, and your backend can run on <code>localhost:5000</code> (or your chosen port).</p>
+
+                    <h3 class="text-2xl font-semibold text-indigo-600">Step 5: Build Components</h3>
+                    <ul class="list-disc ml-6">
+                        <li>Create **React components** in <code>/src/components</code> for charts, tables, and dashboards.</li>
+                        <li>Define **TypeScript types** in <code>/src/types</code> for data models to ensure data integrity.</li>
+                        <li>Use **React hooks** (<code>useState</code>, <code>useEffect</code>) for state management and fetching data.</li>
+                    </ul>
+                    <p><strong>Example Line Chart Component:</strong></p>
+                    <pre><code class="language-typescript">import React from 'react';
+import { Line } from 'react-chartjs-2';
+
+type ChartProps = {
+  data: number[];
+};
+
+const LineChart: React.FC&lt;ChartProps&gt; = ({ data }) => {
+  return &lt;Line data={{ labels: data.map((_, i) => i + 1), datasets: [{ label: 'Metrics', data }] }} /&gt;;
+};
+
+export default LineChart;</code></pre>
+
+                    <h3 class="text-2xl font-semibold text-indigo-600">Step 6: Connect Frontend to Backend</h3>
+                    <p>Use **Axios** or the **Fetch API** to get analytics data from the Node.js backend.</p>
+                    <p><strong>Example service using Axios:</strong></p>
+                    <pre><code class="language-typescript">import axios from 'axios';
+
+export const fetchMetrics = async () => {
+  const response = await axios.get('http://localhost:5000/api/metrics');
+  return response.data;
+};</code></pre>
+
+                    <h3 class="text-2xl font-semibold text-indigo-600">Step 7: Implement UX & Performance Enhancements</h3>
+                    <ul class="list-disc ml-6">
+                        <li>**Lazy load components** using <code>React.lazy</code> and <code>Suspense</code> to reduce initial bundle size:
+<pre><code class="language-typescript">const Chart = React.lazy(() => import('./Chart'));</code></pre>
+                        </li>
+                        <li>Optimize charts for large datasets (e.g., using WebGL libraries or data aggregation).</li>
+                        <li>Use **CSS Grid or Flexbox** (or a utility framework like Tailwind CSS) to make your dashboard responsive.</li>
+                        <li>Add interactive features like filters, sorting, and drag-and-drop widgets for a better user experience.</li>
+                    </ul>
+                    
+
+[Image of a modern, responsive analytics dashboard layout using charts and tables]
+
+
+                    <h3 class="text-2xl font-semibold text-indigo-600">Step 8: Test & Debug in VS Code</h3>
+                    <ul class="list-disc ml-6">
+                        <li>Use the **VS Code debugger** for both frontend (via Debugger for Chrome extension) and backend (Node.js built-in support).</li>
+                        <li>Run unit tests with **Jest** or **React Testing Library**.</li>
+                        <li>Check the browser console for errors and warnings, and fix layout or performance issues.</li>
+                    </ul>
+
+                    <h3 class="text-2xl font-semibold text-indigo-600">Step 9: Commit & Version Control</h3>
+                    <p>Initialize Git in your project:</p>
+                    <pre><code class="language-bash">git init
+git add .
+git commit -m "Initial project setup"</code></pre>
+                    <p>Push your code to GitHub for version control and collaboration.</p>
+
+                    <h3 class="text-2xl font-semibold text-indigo-600">Step 10: Deployment</h3>
+                    <ul class="list-disc ml-6">
+                        <li><strong>Frontend:</strong> GitHub Pages, Netlify, or Vercel.</li>
+                        <li><strong>Backend:</strong> Heroku, Render, or Vercel Serverless Functions.</li>
+                    </ul>
+                    <p class="mt-4 font-bold text-gray-700">Once deployed, your redesigned analytics dashboard is live and accessible to users! 🎉</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <script>
         // === Custom Styles and Components ===
 
@@ -319,6 +500,10 @@
             }, 5000); 
         }
 
+        // === Modal Cleanup on Close (Optional but good practice) ===
+        // To ensure the body doesn't scroll when the modal is open, 
+        // you would typically toggle an 'overflow-hidden' class on the body. 
+        // I've omitted this for simplicity, but it's a common UX improvement for modals.
     </script>
 </body>
 </html>

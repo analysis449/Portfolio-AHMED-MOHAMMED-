@@ -73,6 +73,15 @@
             overflow-x: auto;
             font-size: 0.875rem; /* text-sm */
         }
+        
+        /* === ANIMATION CSS for Typing Effect === */
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        .animate-blink {
+            animation: blink 1s step-end infinite;
+        }
     </style>
 </head>
 <body>
@@ -113,9 +122,14 @@
                     <h1 class="text-5xl sm:text-7xl font-extrabold leading-tight text-gray-800">
                         Ahmed Mohammed.
                     </h1>
-                    <h2 class="text-3xl sm:text-4xl font-light text-graymt-2" style="color: #6751e0;">
-                        Full Stack Developer
+                    
+                    <!-- ANIMATED TEXT IMPLEMENTATION -->
+                    <h2 class="text-3xl sm:text-4xl font-light mt-2" style="color: #6751e0;">
+                        <span id="animated-text"></span>
+                        <span id="cursor" class="inline-block w-0.5 h-8 ml-1 bg-indigo-600 animate-blink"></span>
                     </h2>
+                    <!-- END ANIMATED TEXT IMPLEMENTATION -->
+
                     <p class="mt-6 text-lg text-gray-500 max-w-lg">
                         I build scalable and elegant web applications, specializing in React, Node.js, and modern cloud architecture.
                     </p>
@@ -133,8 +147,7 @@
                     <img src="https://github.com/analysis449/Portfolio-AHMED-MOHAMMED-/blob/main/images%201/image%20MOHAMMED%201.jpg?raw=true"
                     alt="Ahmed Mohammed Profile Photo"
                     class="w-64 h-64 sm:w-80 sm:h-80 object-cover rounded-full shadow-2xl border-4 border-white ring-4 ring-indigo-300"
-                >
-                </div>
+                    >
                 </div>
             </div>
         </section>
@@ -256,7 +269,7 @@
                 </div>
 
                 <div>
-                    <h3 class="text-2xl font-semibold text-gray-700 mb-4 border-b pb-2 border-indigo-100">DevOps & Tools</h3>
+                    <h3 class="text-2xl font-semibold text-gray-700 mb-4 border-b pb-2 border-indigo-100">DevOps & Tools </h3>
                     <div class="flex flex-wrap gap-3">
                         <span class="skill-badge bg-purple-50 text-purple-700 border-purple-200">AWS (Lambda, S3)</span>
                         <span class="skill-badge bg-purple-50 text-purple-700 border-purple-200">Docker</span>
@@ -365,22 +378,22 @@ npm install express cors dotenv</code></pre>
                     <h3 class="text-2xl font-semibold text-indigo-600">Step 3: Organize Your Project Structure</h3>
                     <p>A clean structure makes your project scalable and maintainable. Recommended structure:</p>
                     <pre><code>/analytics-dashboard
-  /src
-    /components (Reusable UI)
-    /pages (Main views/routes)
-    /services (API calls/business logic)
-    /types (TypeScript definitions)
+  /src
+    /components (Reusable UI)
+    /pages (Main views/routes)
+    /services (API calls/business logic)
+    /types (TypeScript definitions)
 /backend
-  /routes (API endpoints)
-  /controllers (Logic to handle routes)
-  /models (Data schemas/DB interaction)
-  server.ts (Main entry point)</code></pre>
+  /routes (API endpoints)
+  /controllers (Logic to handle routes)
+  /models (Data schemas/DB interaction)
+  server.ts (Main entry point)</code></pre>
 
                     <h3 class="text-2xl font-semibold text-indigo-600">Step 4: Start Frontend & Backend</h3>
                     <p><strong>Frontend:</strong></p>
                     <pre><code class="language-bash">npm start</code></pre>
                     <p><strong>Backend:</strong></p>
-                    <pre><code class="language-bash">node backend/server.js  # Or use ts-node if backend is TypeScript</code></pre>
+                    <pre><code class="language-bash">node backend/server.js  # Or use ts-node if backend is TypeScript</code></pre>
                     <p>Your frontend will run on <code>localhost:3000</code>, and your backend can run on <code>localhost:5000</code> (or your chosen port).</p>
 
                     <h3 class="text-2xl font-semibold text-indigo-600">Step 5: Build Components</h3>
@@ -394,11 +407,11 @@ npm install express cors dotenv</code></pre>
 import { Line } from 'react-chartjs-2';
 
 type ChartProps = {
-  data: number[];
+  data: number[];
 };
 
 const LineChart: React.FC&lt;ChartProps&gt; = ({ data }) => {
-  return &lt;Line data={{ labels: data.map((_, i) => i + 1), datasets: [{ label: 'Metrics', data }] }} /&gt;;
+  return &lt;Line data={{ labels: data.map((_, i) => i + 1), datasets: [{ label: 'Metrics', data }] }} /&gt;;
 };
 
 export default LineChart;</code></pre>
@@ -409,8 +422,8 @@ export default LineChart;</code></pre>
                     <pre><code class="language-typescript">import axios from 'axios';
 
 export const fetchMetrics = async () => {
-  const response = await axios.get('http://localhost:5000/api/metrics');
-  return response.data;
+  const response = await axios.get('http://localhost:5000/api/metrics');
+  return response.data;
 };</code></pre>
 
                     <h3 class="text-2xl font-semibold text-indigo-600">Step 7: Implement UX & Performance Enhancements</h3>
@@ -503,10 +516,65 @@ git commit -m "Initial project setup"</code></pre>
             }, 5000); 
         }
 
-        // === Modal Cleanup on Close (Optional but good practice) ===
-        // To ensure the body doesn't scroll when the modal is open, 
-        // you would typically toggle an 'overflow-hidden' class on the body. 
-        // I've omitted this for simplicity, but it's a common UX improvement for modals.
+        // === TYPING ANIMATION LOGIC ===
+
+        const textElement = document.getElementById('animated-text');
+        
+        // Roles to cycle through
+        const roles = [
+            "Full Stack Developer",
+            "React Specialist",
+            "Node.js Architect",
+            "Cloud Enthusiast"
+        ];
+        
+        let roleIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        
+        // Timing constants for control
+        const typingSpeed = 100;
+        const deletingSpeed = 50;
+        const delayBeforeDelete = 2000;
+        const delayBeforeNext = 800;
+
+        function type() {
+            const currentRole = roles[roleIndex];
+
+            if (isDeleting) {
+                // Deleting phase
+                textElement.textContent = currentRole.substring(0, charIndex - 1);
+                charIndex--;
+
+                if (charIndex === 0) {
+                    isDeleting = false;
+                    // Move to the next role in a loop
+                    roleIndex = (roleIndex + 1) % roles.length; 
+                    // Delay before starting to type the new word
+                    setTimeout(type, delayBeforeNext); 
+                } else {
+                    // Continue deleting
+                    setTimeout(type, deletingSpeed);
+                }
+            } else {
+                // Typing phase
+                textElement.textContent = currentRole.substring(0, charIndex + 1);
+                charIndex++;
+
+                if (charIndex === currentRole.length) {
+                    isDeleting = true;
+                    // Delay before starting to delete the word
+                    setTimeout(type, delayBeforeDelete); 
+                } else {
+                    // Continue typing
+                    setTimeout(type, typingSpeed);
+                }
+            }
+        }
+        
+        // Start the typing animation when the script runs
+        type();
+
     </script>
 </body>
 </html>
